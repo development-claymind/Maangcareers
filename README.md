@@ -1,4 +1,7 @@
 # MaangCraeer Django Project
+## 🚨 Notes
+
+> **Note:** The `requirements.txt` file is not currently included in this repository. Please generate it by running:
 
 ## Overview
 
