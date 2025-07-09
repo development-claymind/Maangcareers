@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Chat App</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .user-list {
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .chat-box {
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .message-input {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .input-group-prepend {
+            cursor: pointer;
+        }
+
+        .file-preview {
+            display: none;
+            margin-top: 10px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="chat_logo.png" alt="Chat Logo" height="30" class="d-inline-block align-text-top">
+            Chat App
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 user-list">
+            <!-- User List -->
+            <h5>User List</h5>
+            <ul class="list-group">
+                <li class="list-group-item">User 1</li>
+                <li class="list-group-item">User 2</li>
+                <!-- Add more users as needed -->
+            </ul>
+        </div>
+
+        <div class="col-md-8 chat-box">
+            <!-- Chat Box -->
+            <h5>Chat with User</h5>
+            <div class="mb-3"> <!-- Chat messages container -->
+                <!-- Display chat messages here -->
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type your message...">
+                    <input class="btn btn-primary" id="sendMessageBtn" type="button" value="Send">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Add your JavaScript logic here
+    document.getElementById('fileInput').addEventListener('change', function () {
+        // Display file preview
+        showFilePreview(this);
+    });
+
+    document.getElementById('sendMessageBtn').addEventListener('click', function () {
+        // Add logic to send the message or file
+        // You may use JavaScript or an Ajax request to send data to your server
+    });
+
+    function showFilePreview(input) {
+        const filePreview = document.getElementById('filePreview');
+        const file = input.files[0];
+
+        // Clear previous preview
+        filePreview.innerHTML = '';
+
+        if (file) {
+            const fileType = file.type.split('/')[0];
+            const validFileTypes = ['image', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+            if (validFileTypes.includes(fileType)) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const previewElement = document.createElement('img');
+                    previewElement.src = e.target.result;
+                    previewElement.className = 'img-fluid';
+                    filePreview.appendChild(previewElement);
+                };
+
+                reader.readAsDataURL(file);
+                filePreview.style.display = 'block';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
